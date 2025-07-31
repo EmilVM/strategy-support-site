@@ -1,0 +1,324 @@
+/* Import a modern sans-serif font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --color-bg: #0a0a0a;
+  --color-primary: #ffffff;
+  --color-secondary: #f5a623; /* golden accent colour */
+  --color-muted: #aaaaaa;
+  --max-width: 1100px;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+body.loaded {
+  opacity: 1;
+}
+
+body.fade-out {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Layout containers */
+.container {
+  width: 90%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+}
+
+/* Header and navigation */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  z-index: 1000;
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 0.75rem;
+}
+
+.site-logo {
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.2s ease-in-out;
+}
+
+.site-nav a:hover,
+.site-nav a:focus {
+  color: var(--color-secondary);
+}
+
+.site-nav a[aria-current="page"] {
+  color: var(--color-secondary);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: block;
+  }
+  .site-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--color-bg);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 1rem;
+  }
+  .site-nav.open {
+    display: flex;
+  }
+  .site-nav ul {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+/* Main content area */
+.site-main {
+  padding-top: 4.5rem; /* space for fixed header */
+}
+
+/* Hero section */
+.hero {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1rem;
+  position: relative;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 6vw + 1rem, 4rem);
+  font-weight: 600;
+  line-height: 1.2;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.highlight {
+  color: var(--color-secondary);
+  font-weight: 600;
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+.section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.section p {
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+  color: var(--color-muted);
+}
+
+/* Buttons */
+.button {
+  display: inline-block;
+  background-color: var(--color-secondary);
+  color: var(--color-bg);
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* .button:hover and :focus states use a slightly darker accent colour for feedback */
+.button:hover,
+.button:focus {
+  background-color: #d68e1a;
+}
+
+/* Footer */
+.site-footer {
+  padding: 2rem 0;
+  background: #0f0f0f;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+/* Cookie banner */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(20, 20, 20, 0.95);
+  color: var(--color-primary);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 2000;
+}
+
+.cookie-banner .button {
+  margin-top: 0.5rem;
+  background-color: var(--color-secondary);
+  color: var(--color-bg);
+}
+
+/* Contact form */
+.contact-form {
+  max-width: 600px;
+  margin-top: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.contact-form input,
+.contact-form textarea {
+  background: #121212;
+  border: 1px solid #333;
+  color: var(--color-primary);
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+}
+
+/* Blog list */
+.post-preview {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.post-preview h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.post-preview h2 a {
+  color: var(--color-secondary);
+  text-decoration: none;
+}
+
+.post-preview h2 a:hover {
+  text-decoration: underline;
+}
+
+.post-preview p {
+  color: var(--color-muted);
+  margin-bottom: 0.5rem;
+}
+
+.post-preview small {
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
+/* Individual blog posts */
+article.post {
+  max-width: 800px;
+  margin-inline: auto;
+  padding: 2rem 1rem;
+}
+
+article.post h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+article.post p {
+  margin-bottom: 1rem;
+  color: var(--color-muted);
+  font-size: 1.125rem;
+}
+
+@media (min-width: 640px) {
+  .cookie-banner {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .cookie-banner p {
+    margin: 0 1rem 0 0;
+  }
+}
