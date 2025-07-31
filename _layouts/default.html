@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title }} · {{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  {%- seo -%}
+
+  <!-- Open Graph defaults -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{{ page.title }} · {{ site.title }}" />
+  <meta property="og:description" content="{{ page.description | default: site.description }}" />
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+  <meta property="og:image" content="{{ site.url }}{{ site.baseurl }}/assets/images/og-image.png" />
+
+  <!-- Twitter cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ page.title }} · {{ site.title }}" />
+  <meta name="twitter:description" content="{{ page.description | default: site.description }}" />
+  <meta name="twitter:image" content="{{ site.url }}{{ site.baseurl }}/assets/images/og-image.png" />
+
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+
+  <link rel="icon" type="image/png" href="{{ '/assets/images/favicon.png' | relative_url }}">
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a class="site-logo" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      <button class="nav-toggle" aria-controls="primary-navigation" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        ☰
+      </button>
+      <nav id="primary-navigation" class="site-nav" role="navigation">
+        <ul>
+          <li><a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Home</a></li>
+          <li><a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a></li>
+          <li><a href="{{ '/services/' | relative_url }}"{% if page.url == '/services/' %} aria-current="page"{% endif %}>Services</a></li>
+          <li><a href="{{ '/pricing/' | relative_url }}"{% if page.url == '/pricing/' %} aria-current="page"{% endif %}>Pricing</a></li>
+          <li><a href="{{ '/case-studies/' | relative_url }}"{% if page.url == '/case-studies/' %} aria-current="page"{% endif %}>Case studies</a></li>
+          <li><a href="{{ '/blog/' | relative_url }}"{% if page.url == '/blog/' %} aria-current="page"{% endif %}>Blog</a></li>
+          <li><a href="{{ '/contact/' | relative_url }}"{% if page.url == '/contact/' %} aria-current="page"{% endif %}>Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="site-main" role="main">
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ site.title }}. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Cookie consent banner -->
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent" hidden>
+    <p>We use cookies to improve your experience. By using this site you agree to our use of cookies.</p>
+    <button id="cookie-accept" class="button">Accept</button>
+  </div>
+
+  <script>
+  // Wait for DOM to finish loading then add loaded class for fade‑in effect
+  document.addEventListener('DOMContentLoaded', function() {
+    document.body.classList.add('loaded');
+
+    // Handle mobile navigation toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const nav = document.getElementById('primary-navigation');
+    navToggle.addEventListener('click', function() {
+      const expanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
+      navToggle.setAttribute('aria-expanded', !expanded);
+      nav.classList.toggle('open');
+    });
+
+    // Fade out on navigation for smooth page transitions
+    document.querySelectorAll('a[href]').forEach(function(link) {
+      // Only intercept internal links on the same domain
+      const url = link.getAttribute('href');
+      if (url && !url.startsWith('http') && !url.startsWith('#') && !link.hasAttribute('download') && !link.getAttribute('target')) {
+        link.addEventListener('click', function(e) {
+          // ignore if ctrl/cmd-click for new tab
+          if (e.ctrlKey || e.metaKey) return;
+          e.preventDefault();
+          document.body.classList.add('fade-out');
+          setTimeout(function() {
+            window.location.href = link.href;
+          }, 300);
+        });
+      }
+    });
+
+    // Cookie banner logic
+    const cookieBanner = document.getElementById('cookie-banner');
+    const cookieAccept = document.getElementById('cookie-accept');
+    if (!localStorage.getItem('cookieAccepted')) {
+      cookieBanner.hidden = false;
+    }
+    cookieAccept.addEventListener('click', function() {
+      localStorage.setItem('cookieAccepted', 'true');
+      cookieBanner.hidden = true;
+    });
+  });
+  </script>
+</body>
+</html>
