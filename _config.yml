@@ -1,0 +1,19 @@
+title: "Strategy Support"
+description: "Take the guesswork out of brand and creative development."
+baseurl: ""
+url: ""
+
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+permalink: pretty
+
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
